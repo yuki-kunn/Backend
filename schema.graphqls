@@ -1,36 +1,23 @@
-# GraphQL schema example
-#
-# https://gqlgen.com/getting-started/
-
-type Todo {
-  id: ID!
-  text: String!
-  done: Boolean!
-  userId: String!
-  user: User!
-}
-
-type User {
-  id: ID!
-  name: String!
-}
-
+# データ取得のためのスキーマ
 type Query {
   todos: [Todo!]!
 }
 
-input CreateTodoInput {
-  text: String!
+# データ変更のためのスキーマ
+type Mutation {
+  createTodo(todoInput: CreateTodoInput!): Todo!
+  updateTodoStatus(todoId: ID!, done: Boolean!): Boolean!
+  deleteTodo(todoId: ID!): Boolean!
 }
 
-input UpdateTodoInput {
+# Todoの型定義
+type Todo {
+  id: ID!
   text: String!
   done: Boolean!
 }
 
-type Mutation {
-  createTodo(todoInput: CreateTodoInput!): Todo!
-  updateTodo(todoId: ID!, todoInput: UpdateTodoInput!): Boolean!
-  updateTodoStatus(todoId: ID!, done: Boolean!): Boolean!
-  deleteTodo(todoId: ID!): Boolean!
+# Todo作成の際に必要な引数を定義
+input CreateTodoInput {
+  text: String!
 }
